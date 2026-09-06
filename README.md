@@ -26,49 +26,6 @@ The project was developed and verified using **Verilog HDL, Intel Quartus Prime,
 * Modular RTL architecture
 * Module-level and system-level verification testbenches
 
----
-
-## Processor Architecture
-
-The processor is organized as a modular RTL design consisting of the following blocks:
-
-```text
-                     ┌─────────────────────┐
-                     │  Instruction Memory │
-                     └──────────┬──────────┘
-                                │
-                                ▼
-                         16-bit Instruction
-                                │
-                                ▼
-                     ┌─────────────────────┐
-                     │ Instruction Decoder │
-                     │ Opcode / Registers  │
-                     └──────────┬──────────┘
-                                │
-                                ▼
-                     ┌─────────────────────┐
-                     │    Control Unit     │
-                     └──────────┬──────────┘
-                                │
-                                ▼
-      ┌───────────────────────────────────────────────┐
-      │                   CPU Core                    │
-      │                                               │
-      │   ┌───────────────┐      ┌─────────────────┐ │
-      │   │ Register File │─────▶│      ALU        │ │
-      │   │   8 × 8-bit   │◀─────│                 │ │
-      │   └───────────────┘      └─────────────────┘ │
-      │                                               │
-      └───────────────────────────────────────────────┘
-                                │
-                                ▼
-                     Result / Carry / Overflow / Zero
-```
-
-The top-level `cpu_system` module integrates the program counter, instruction memory, instruction decoder, and CPU core.
-
----
 
 # Architecture Modules
 
@@ -165,21 +122,6 @@ The processing unit integrates:
 * Register file
 * 8-bit ALU
 
-The processing unit performs the following flow:
-
-```text
-Register File
-     │
-     ├── Read Operand A ──┐
-     │                    │
-     └── Read Operand B ──┼──► ALU ───► Result + Flags
-                          │
-                     ALU Operation
-```
-
-The register file provides two operands to the ALU, and the ALU generates the result and status flags.
-
----
 
 ## 5. CPU Core
 
@@ -423,46 +365,6 @@ The testbench monitors:
 
 * ModelSim
 
----
-
-# Repository Structure
-
-```text
-8-bit-Processor-Verilog/
-│
-├── src/
-│   ├── alu_8bit.v
-│   ├── register_file.v
-│   ├── control_unit.v
-│   ├── processing_unit.v
-│   ├── program_counter.v
-│   ├── instruction_memory.v
-│   ├── cpu_core.v
-│   └── cpu_system.v
-│
-├── testbench/
-│   ├── alu_8bit_tb.v
-│   ├── register_file_tb.v
-│   ├── control_unit_tb.v
-│   ├── processing_unit_tb.v
-│   ├── program_counter_tb.v
-│   ├── instruction_memory_tb.v
-│   ├── cpu_core_tb.v
-│   └── cpu_system_tb.v
-│
-├── quartus/
-│   ├── ALU_8bit.qpf
-│   └── alu_8bit.qsf
-│
-├── results/
-│   └── simulation screenshots
-│
-├── README.md
-│
-└── .gitignore
-```
-
----
 
 # How to Run the Project
 
